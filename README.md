@@ -1,3 +1,8 @@
+# City Flocks
+
+## Heroku Link
+http://city-flocks-server.herokuapp.com/api/users
+
 # Boilermaker
 
 _Good things come in pairs_
