@@ -15,6 +15,7 @@ const EventTeamTask = require('./eventTeamTask');
 // User belongsTo Team, Team hasMany User. User has FK teamId
 User.belongsTo(Team);
 Team.hasMany(User);
+Team.belongsTo(User, {as: 'captainId'});
 
 // Task belongsTo Event, Event hasMany Tasks. Task has FK eventId
 Task.belongsTo(Event);
