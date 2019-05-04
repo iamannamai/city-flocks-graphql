@@ -3,7 +3,7 @@ const db = require('../db');
 const Event = require('./event');
 
 // An event team represents a team participating in an event
-const EventTeam = ('event_team', {
+const EventTeam = db.define('event_team', {
   id: {
     type: Sequelize.INTEGER,
     primaryKey: true,

@@ -34,6 +34,11 @@ const User = db.define('user', {
     type: Sequelize.STRING,
     unique: true,
     allowNull: false
+  },
+  // if the user can only have one team, they can either be a captain for that team or not
+  isCaptain: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false
   }
 })
 

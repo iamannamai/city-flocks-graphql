@@ -15,7 +15,6 @@ const EventTeamTask = require('./eventTeamTask');
 // User belongsTo Team, Team hasMany User. User has FK teamId
 User.belongsTo(Team);
 Team.hasMany(User);
-Team.belongsTo(User, {as: 'captainId'});
 
 // Task belongsTo Event, Event hasMany Tasks. Task has FK eventId
 Task.belongsTo(Event);
@@ -26,8 +25,8 @@ Team.belongsToMany(Event, { through: EventTeam });
 Event.belongsToMany(Team, { through: EventTeam });
 
 // EventTeam hasMany Tasks, Task belongsToMany EventTeam
+Task.belongsToMany(EventTeam, { through: EventTeamTask });
 EventTeam.belongsToMany(Task, { through: EventTeamTask });
-Task.hasMany(EventTeam, { through: EventTeamTask });
 
 /**
  * We'll export all of our models here, so that any time a module needs a model,
