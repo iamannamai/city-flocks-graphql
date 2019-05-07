@@ -14,4 +14,19 @@ router.get('/', async (req, res, next) => {
   } catch (err) {
     next(err)
   }
-});
+})
+
+router.get('/:id', async (req, res, next) => {
+  try {
+    const userId = parseInt(req.params.id, 10)
+    const user = await User.findOne({
+      where: {
+        id: userId
+      },
+      attributes: ['id', 'username', 'email']
+    })
+    res.json(user)
+  } catch (err) {
+    next(err)
+  }
+})

@@ -1,9 +1,9 @@
-const User = require('./user');
-const Team = require('./team');
-const Event = require('./event');
-const Task = require('./task');
-const EventTeam = require('./eventTeam');
-const EventTeamTask = require('./eventTeamTask');
+const User = require('./user')
+const Team = require('./team')
+const Event = require('./event')
+const Task = require('./task')
+const EventTeam = require('./eventTeam')
+const EventTeamTask = require('./eventTeamTask')
 
 /**
  * If we had any associations to make, this would be a great place to put them!
@@ -13,20 +13,20 @@ const EventTeamTask = require('./eventTeamTask');
  */
 
 // User belongsTo Team, Team hasMany User. User has FK teamId
-User.belongsTo(Team);
-Team.hasMany(User);
+User.belongsTo(Team)
+Team.hasMany(User)
 
 // Task belongsTo Event, Event hasMany Tasks. Task has FK eventId
-Task.belongsTo(Event);
-Event.hasMany(Task);
+Task.belongsTo(Event)
+Event.hasMany(Task)
 
 // Team belongsToMany Event, Event belongsToMany through EventTeam
-Team.belongsToMany(Event, { through: EventTeam });
-Event.belongsToMany(Team, { through: EventTeam });
+Team.belongsToMany(Event, {through: EventTeam})
+Event.belongsToMany(Team, {through: EventTeam})
 
 // EventTeam hasMany Tasks, Task belongsToMany EventTeam
-Task.belongsToMany(EventTeam, { through: EventTeamTask });
-EventTeam.belongsToMany(Task, { through: EventTeamTask });
+Task.belongsToMany(EventTeam, {through: EventTeamTask})
+EventTeam.belongsToMany(Task, {through: EventTeamTask})
 
 /**
  * We'll export all of our models here, so that any time a module needs a model,

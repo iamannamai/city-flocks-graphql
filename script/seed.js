@@ -1,7 +1,7 @@
 'use strict'
 
 const db = require('../server/db')
-const {User} = require('../server/db/models')
+const {Event, Task, Team, User} = require('../server/db/models')
 
 async function seed() {
   await db.sync({force: true})
@@ -9,10 +9,111 @@ async function seed() {
 
   const users = await Promise.all([
     User.create({username: 'cody', email: 'cody@email.com', password: '123'}),
-    User.create({username: 'murphy', email: 'murphy@email.com', password: '123'})
+    User.create({
+      username: 'murphy',
+      email: 'murphy@email.com',
+      password: '123'
+    }),
+    User.create({username: 'abu', email: 'abu@email.com', password: '123'}),
+    User.create({username: 'anna', email: 'anna@email.com', password: '123'}),
+    User.create({username: 'danny', email: 'danny@email.com', password: '123'}),
+    User.create({username: 'juan', email: 'juan@email.com', password: '123'})
   ])
 
   console.log(`seeded ${users.length} users`)
+
+  const teams = await Promise.all([
+    Team.create({name: 'Team 1'}),
+    Team.create({name: 'Team 2'})
+  ])
+
+  await teams[0].addUsers([users[0], users[2], users[4]])
+  await teams[1].addUsers([users[1], users[3], users[5]])
+  users.forEach((user, index) => user.setTeam(teams[index % 2]))
+
+  console.log(`seeded ${teams.length} teams`)
+
+  const tasks = await Promise.all([
+    Task.create({
+      name: 'Charging Bull',
+      description: 'Grab the bull by the horns',
+      lat: 40.7055648,
+      long: -74.0156334,
+      address: 'New York, NY 10004',
+      points: 600
+    }),
+    Task.create({
+      name: 'New York Stock Exchange',
+      description: 'Stand upon the steps of big business',
+      lat: 40.7054428,
+      long: -74.013037,
+      address: '11 Wall St, New York, NY 10005',
+      points: 400
+    }),
+    Task.create({
+      name: 'Burger King',
+      description: 'The MOST IMPORTANT place to visit in FiDi',
+      lat: 40.704475,
+      long: -74.0122002,
+      address: '16 Beaver St, New York, NY 10004',
+      points: 5000
+    }),
+    Task.create({
+      name: 'National Museum of the American Indian',
+      description:
+        'Take some time to study the past, lest we doom ourselves to repeat it',
+      lat: 40.7029133,
+      long: -74.0122323,
+      address: '1 Bowling Green, New York, NY 10004',
+      points: 800
+    }),
+    Task.create({
+      name: 'Staten Island Ferry',
+      description:
+        "Get through the gates, but don't board. We wouldn't want you to prematurely end your game",
+      lat: 40.7029133,
+      long: -74.0122323,
+      address: '4 South St, New York, NY 10004',
+      points: 1200
+    }),
+    Task.create({
+      name: 'Starbucks',
+      description:
+        'An important foundation in American life, order one of our Veinte Matcha Frappuccinos only $18',
+      lat: 40.7029133,
+      long: -74.0122323,
+      address: 'One Battery Park Plaza, New York, NY 10004',
+      points: 4000
+    })
+  ])
+
+  console.log(`seeded ${tasks.length} tasks`)
+
+  const events = await Promise.all([
+    Event.create({
+      name: 'Financial Icons',
+      description: 'Find the icons that best represent the Financial District',
+      isActive: true,
+      duration: 3600
+    }),
+    Event.create({
+      name: 'American Life',
+      description:
+        'What makes up American Life today? This hunt with show you the foundations of life in America',
+      isActive: false
+    })
+  ])
+
+  await events[0].addTasks([tasks[0], tasks[1], tasks[2]])
+  await events[1].addTasks([tasks[3], tasks[4], tasks[5]])
+
+  for (let i = 0; i < tasks.length; i++) {
+    let eventIndex = i < 3 ? 0 : 1
+    await tasks[i].setEvent(events[eventIndex])
+  }
+
+  console.log(`seeded ${events.length} events`)
+
   console.log(`seeded successfully`)
 }
 
