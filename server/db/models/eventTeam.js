@@ -1,13 +1,12 @@
-const Sequelize = require('sequelize');
-const db = require('../db');
-const Event = require('./event');
+const Sequelize = require('sequelize')
+const db = require('../db')
 
 // An event team represents a team participating in an event
 const EventTeam = db.define('event_team', {
   id: {
     type: Sequelize.INTEGER,
     primaryKey: true,
-    autoIncrement: true,
+    autoIncrement: true
   },
   beginTime: {
     type: Sequelize.INTEGER,
@@ -17,9 +16,9 @@ const EventTeam = db.define('event_team', {
     type: Sequelize.INTEGER,
     defaultValue: null
   }
-});
+})
 
-module.exports = EventTeam;
+module.exports = EventTeam
 
 // EventTeam.prototype.startEvent = function() {
 //   const event = Event.findByPk(this.eventId);

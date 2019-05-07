@@ -1,5 +1,5 @@
-const Sequelize = require('sequelize');
-const db = require('../db');
+const Sequelize = require('sequelize')
+const db = require('../db')
 
 const Event = db.define('event', {
   name: {
@@ -17,6 +17,6 @@ const Event = db.define('event', {
     type: Sequelize.INTEGER,
     defaultValue: 2 * 60 * 60
   }
-});
+})
 
-module.exports = Event;
+module.exports = Event
