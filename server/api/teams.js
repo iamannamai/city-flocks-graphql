@@ -49,7 +49,7 @@ router.get('/:id/users', async (req, res, next) => {
 // Create team
 router.post('/', async (req, res, next) => {
   try {
-    const name = req.params.name
+    const name = req.body.name
     const team = await Team.create({name})
     res.json(team)
   } catch (err) {
@@ -58,13 +58,14 @@ router.post('/', async (req, res, next) => {
 })
 
 // Add player to team
-router.post('/:teamId/addUser/:userId', async (req, res, next) => {
+router.post('/:teamId/addUser/', async (req, res, next) => {
   try {
-    const {teamId, userId} = req.params
+    const {teamId} = req.params
+    const {userId} = req.body
     const user = await User.findOne({where: {id: userId}})
-    const team = Team.findOne({where: {id: teamId}})
+    const team = await Team.findOne({where: {id: teamId}})
     await user.setTeam(team)
-    team.addUser(user)
+    await team.addUser(user)
     res.json(team)
   } catch (err) {
     next(err)
