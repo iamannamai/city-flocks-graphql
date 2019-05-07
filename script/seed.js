@@ -13,15 +13,11 @@ async function seed() {
       username: 'murphy',
       email: 'murphy@email.com',
       password: '123'
-<<<<<<< HEAD
     }),
     User.create({username: 'abu', email: 'abu@email.com', password: '123'}),
     User.create({username: 'anna', email: 'anna@email.com', password: '123'}),
     User.create({username: 'danny', email: 'danny@email.com', password: '123'}),
     User.create({username: 'juan', email: 'juan@email.com', password: '123'})
-=======
-    })
->>>>>>> master
   ])
 
   console.log(`seeded ${users.length} users`)
