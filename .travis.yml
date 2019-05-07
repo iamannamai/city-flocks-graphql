@@ -14,16 +14,16 @@ notifications:
 install:
   - npm ci # faster, goes only from package-lock
 before_script:
-  - psql -c 'create database "boilermaker-test";' -U postgres # remember to change this name if you change it elsewhere (e.g. package.json)
+  - psql -c 'create database "city-flocks-server-test";' -U postgres # remember to change this name if you change it elsewhere (e.g. package.json)
 script:
   - npm test             # test the code
-  - npm run build-client # make the bundle
+  # - npm run build-client # make the bundle
 
-# before_deploy:
-#   - rm -rf node_modules # omit from the tarball, since we skip cleanup
-# deploy:
-#   skip_cleanup: true # prevents travis from deleting the build
-#   provider: heroku
-#   app: YOUR-HEROKU-APP-NAME-HERE # see README
-#   api_key:
-#     secure: YOUR-***ENCRYPTED***-API-KEY-HERE # see README
+before_deploy:
+  - rm -rf node_modules # omit from the tarball, since we skip cleanup
+deploy:
+  skip_cleanup: true # prevents travis from deleting the build
+  provider: heroku
+  app: city-flocks-server # see README
+  api_key:
+    secure: aBAinuEUxEkQ/7GqTMIZXNzHZeK/c/0KYlSjaHjZ3JmAoE9JbwCFSdD6z1yBdc4CKPtmMsz/cchZiJRAq4k5giOQ6hykmKsN4LZn8GR9LtRZNujcembEpBW1mccqyXeM/aiocK8c1UeDcwoXL79OkHbhKpW26RI+NOkLkOnFfOK8jwpR6l8lZ2v3muufH7qCMXXACSRspiv3v48/L/kmOkKKETeZzGP1Uip+xA8KiK9YQl6paXhxKi8OyeLtVMWI8+Qz9o/iaYLTKHgqjZCrHOgWnA7bb/fUDhrpSYYrmlQW+jfh8KuLIMmF58zclMccW7EDoLr9so/gH3EYxwaTS4U/9suFNir/SqC2OLf+HFmgHIM3hRkeAslc8FvkJSmzJEVE6/iGo11KcKwdDog4sbR0LjACF8F9VDN5w++OI8/Up8D3cJ48699hspWrbGZd7sZmnWemFftzfc165bIGfvj+oaK6thPdgTnBAB9Zaw9Dy/B1pCwY2mhVdSgABFwJ2Pv+PATwrwmhpedl6vg7mDSmXN9twHk8BrMonp2oNzlsjKNbpNONkP3Y/VNnTrT8uFKU6wmvqapzuabFXROj5k/Fj5w6X6D1TmXJxR5tJw4CgRa+RL1puwKD1OvA4M5l6VCJwp19XOjTztmhf8Ef0Lc8CdnTZaeUMeQu8WY9wug= # see README
