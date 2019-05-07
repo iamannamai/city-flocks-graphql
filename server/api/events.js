@@ -61,9 +61,9 @@ router.post('/:eventId/addTask/:taskId', async (req, res, next) => {
   try {
     const {eventId, taskId} = req.params
     const task = await Task.findOne({where: {id: taskId}})
-    const event = Event.findOne({where: {id: eventId}})
+    const event = await Event.findOne({where: {id: eventId}})
     await task.setEvent(event)
-    event.addTask(task)
+    await event.addTask(task)
     res.json(event)
   } catch (err) {
     next(err)
