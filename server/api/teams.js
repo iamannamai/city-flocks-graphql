@@ -6,7 +6,6 @@ module.exports = router
 router.get('/', async (req, res, next) => {
   try {
     const teams = await Team.findAll({})
-    console.log(req.user)
     res.json(teams)
   } catch (err) {
     next(err)
