@@ -6,6 +6,7 @@ module.exports = router
 router.get('/', async (req, res, next) => {
   try {
     const teams = await Team.findAll({})
+    console.log(req.user)
     res.json(teams)
   } catch (err) {
     next(err)
@@ -51,6 +52,8 @@ router.post('/', async (req, res, next) => {
   try {
     const name = req.body.name
     const team = await Team.create({name})
+    const user = await User.findOne({where:{id:req.user.id}})
+    team.addUser(user)
     res.json(team)
   } catch (err) {
     next(err)
