@@ -49,8 +49,11 @@ router.get('/:id/users', async (req, res, next) => {
 // Create team
 router.post('/', async (req, res, next) => {
   try {
+    if (!req.user)  return res.sendStatus(401)
     const name = req.body.name
     const team = await Team.create({name})
+    const user = await User.findOne({where:{id:req.user.id}})
+    team.addUser(user)
     res.json(team)
   } catch (err) {
     next(err)
