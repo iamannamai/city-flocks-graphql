@@ -94,13 +94,15 @@ async function seed() {
       name: 'Financial Icons',
       description: 'Find the icons that best represent the Financial District',
       isActive: true,
-      duration: 3600
+      duration: 3600,
+      location: 'Financial District, NY'
     }),
     Event.create({
       name: 'American Life',
       description:
         'What makes up American Life today? This hunt with show you the foundations of life in America',
-      isActive: false
+      isActive: false,
+      location: 'New York, NY'
     })
   ])
 
