@@ -102,7 +102,7 @@ async function seed() {
       description:
         'What makes up American Life today? This hunt with show you the foundations of life in America',
       isActive: false,
-      location: 'New York, NY'
+      location: 'Manhattan, NY'
     })
   ])
 
