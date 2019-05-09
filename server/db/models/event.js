@@ -13,9 +13,13 @@ const Event = db.define('event', {
     type: Sequelize.BOOLEAN,
     defaultValue: true
   },
+  location: {
+    type: Sequelize.STRING
+  },
   duration: {
     type: Sequelize.INTEGER,
-    defaultValue: 2 * 60 * 60
+    defaultValue: 2 * 60 * 60,
+    allowNull: false
   }
 })
 

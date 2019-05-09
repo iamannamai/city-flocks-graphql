@@ -48,8 +48,13 @@ router.get('/:id/tasks', async (req, res, next) => {
 // Create event
 router.post('/', async (req, res, next) => {
   try {
-    const name = req.params.name
-    const event = await Event.create({name})
+    const { name, location, duration } = req.body
+    const eventBody = {
+      name,
+      location,
+      duration
+    }
+    const event = await Event.create(eventBody)
     res.json(event)
   } catch (err) {
     next(err)
