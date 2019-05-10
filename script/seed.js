@@ -63,8 +63,8 @@ async function seed() {
       name: 'National Museum of the American Indian',
       description:
         'Take some time to study the past, lest we doom ourselves to repeat it',
-      latitude: 40.7029133,
-      longitude: -74.0122323,
+      latitude: 40.7040058,
+      longitude: -74.0158784,
       address: '1 Bowling Green, New York, NY 10004',
       points: 800
     }),
@@ -72,8 +72,8 @@ async function seed() {
       name: 'Staten Island Ferry',
       description:
         "Get through the gates, but don't board. We wouldn't want you to prematurely end your game",
-      latitude: 40.7029133,
-      longitude: -74.0122323,
+      latitude: 40.7022,
+      longitude: -74.0128,
       address: '4 South St, New York, NY 10004',
       points: 1200
     }),
@@ -134,7 +134,7 @@ async function seed() {
       description:
         'The best place to test this app is right here in Fullstack Academy',
       isActive: true,
-      location: '5 Hanover Square',
+      location: '5 Hanover Square, New York, NY',
       latitude: 40.7049444,
       longitude: -74.0091771,
       latitudeDelta: 0.0148204,
