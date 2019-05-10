@@ -9,14 +9,32 @@ const EventTeam = db.define('event_team', {
     autoIncrement: true
   },
   beginTime: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.DATE,
     defaultValue: null
   },
   endTime: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.DATE,
     defaultValue: null
+  },
+  status: {
+    type: Sequelize.ENUM(['PENDING','ACTIVE','COMPLETED']),
+    defaultValue: 'PENDING'
   }
 })
+
+EventTeam.prototype.deactivateEvent = function() {
+  this.status = "PENDING";
+  this.beginTime = null;
+  this.endTime = null;
+}
+
+EventTeam.prototype.startEvent = function(duration) {
+  this.status = "ACTIVE";
+  this.beginTime = Date.now();
+  console.log(this.beginTime);
+  this.endTime = this.beginTime.getTime() + (duration * 1000);
+  console.log(this.endTime);
+}
 
 module.exports = EventTeam
 

@@ -2,6 +2,8 @@ const router = require('express').Router()
 module.exports = router
 
 router.use('/events', require('./events'))
+router.use('/eventTeams', require('./eventTeams'))
+router.use('/eventTeamTasks', require('./eventTeamTasks'))
 router.use('/tasks', require('./tasks'))
 router.use('/teams', require('./teams'))
 router.use('/users', require('./users'))

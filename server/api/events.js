@@ -1,11 +1,11 @@
 const router = require('express').Router()
-const {Event, Task} = require('../db/models')
+const {Event, Task, Team} = require('../db/models')
 module.exports = router
 
 // Get all events
 router.get('/', async (req, res, next) => {
   try {
-    const events = await Event.findAll({})
+    const events = await Event.findAll()
     res.json(events)
   } catch (err) {
     next(err)
@@ -37,6 +37,24 @@ router.get('/:id/tasks', async (req, res, next) => {
       },
       include: {
         model: Task
+      }
+    })
+    res.json(event)
+  } catch (err) {
+    next(err)
+  }
+})
+
+// Get single event and the teams that have joined it
+router.get('/:id/teams', async (req, res, next) => {
+  try {
+    const eventId = parseInt(req.params.id, 10)
+    const event = await Event.findOne({
+      where: {
+        id: eventId
+      },
+      include: {
+        model: Team
       }
     })
     res.json(event)
