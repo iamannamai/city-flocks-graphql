@@ -7,7 +7,7 @@ module.exports = router
 // know that the route is made so that it's eventId, then teamId, and finally taskId
 // Think of like the name of the model: eventTeamTask, so event then team then task
 // So just make sure to follow the protocol
-router.get('/:eventId/:teamId/:taskId', async (req, res, next) => {
+router.get('/event/:eventId/team/:teamId/task/:taskId', async (req, res, next) => {
   try {
     const {teamId, eventId, taskId} = req.params
     const eventTeam = await EventTeam.findOne({
@@ -29,7 +29,7 @@ router.get('/:eventId/:teamId/:taskId', async (req, res, next) => {
 })
 
 // Toggle a task between complete and incomplete states
-router.put('/:eventId/:teamId/:taskId', async (req, res, next) => {
+router.put('/event/:eventId/team/:teamId/task/:taskId', async (req, res, next) => {
   try {
     const {teamId, eventId, taskId} = req.params;
     const eventTeam = await EventTeam.findOne({

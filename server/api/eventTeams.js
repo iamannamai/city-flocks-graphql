@@ -6,7 +6,7 @@ module.exports = router
 // Note: the way this route is set up is eventId, followed by teamId
 // Think of like the name of the model: eventTeam, so event then team
 // So just make sure to follow the protocol
-router.get('/:eventId/:teamId', async (req, res, next) => {
+router.get('/event/:eventId/team/:teamId', async (req, res, next) => {
   try {
     const {teamId, eventId} = req.params
     const eventTeam = await EventTeam.findOne({
@@ -21,11 +21,11 @@ router.get('/:eventId/:teamId', async (req, res, next) => {
   }
 })
 
-router.get('/:eventId/:teamId/:status', async (req, res, next) => {
+router.get('/event/:eventId/team/:teamId/:status', async (req, res, next) => {
   try {
     const {teamId, eventId} = req.params;
     const status = req.params.status.toUpperCase();
-    const eventTeam = await EventTeam.findOne({
+    const eventTeam = await EventTeam.findAll({
       where: {
         teamId,
         eventId,
@@ -39,7 +39,7 @@ router.get('/:eventId/:teamId/:status', async (req, res, next) => {
 })
 
 // Get the event a team has joined and a copy of its tasks
-router.get('/:eventId/:teamId/tasks', async (req, res, next) => {
+router.get('/event/:eventId/team/:teamId/tasks', async (req, res, next) => {
   try {
     const {teamId, eventId} = req.params
     const eventTeam = await EventTeam.findOne({
@@ -102,7 +102,7 @@ router.delete('/', async (req, res, next) => {
 
 // Starts the event
 // Will not allow more than one "ACTIVE" event
-router.put('/:eventId/:teamId/activate', async (req, res, next) => {
+router.put('/event/:eventId/team/:teamId/activate', async (req, res, next) => {
   try {
     const {teamId, eventId} = req.params;
     const check = await EventTeam.findOne({
@@ -130,7 +130,7 @@ router.put('/:eventId/:teamId/activate', async (req, res, next) => {
 })
 
 // deactivates a team event
-router.put('/:eventId/:teamId/deactivate', async (req, res, next) => {
+router.put('/event/:eventId/team/:teamId/deactivate', async (req, res, next) => {
   try {
     const {teamId, eventId} = req.params;
     const eventTeam = await EventTeam.findOne({
@@ -147,7 +147,7 @@ router.put('/:eventId/:teamId/deactivate', async (req, res, next) => {
 })
 
 // Completes an event
-router.put('/:eventId/:teamId/complete', async (req, res, next) => {
+router.put('/event/:eventId/team/:teamId/complete', async (req, res, next) => {
   try {
     const {teamId, eventId} = req.params
     const eventTeam = await EventTeam.findOne({

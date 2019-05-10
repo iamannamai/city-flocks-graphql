@@ -85,10 +85,24 @@ router.post('/:eventId/addTask/:taskId', async (req, res, next) => {
     const {eventId, taskId} = req.params
     const task = await Task.findOne({where: {id: taskId}})
     const event = await Event.findOne({where: {id: eventId}})
-    await task.setEvent(event)
     await event.addTask(task)
     res.json(event)
   } catch (err) {
     next(err)
   }
 })
+
+// Switch events between active and inactive
+router.put('/:eventId', async (req, res, next) => {
+  try {
+    const { eventId } = req.params
+    const event = await Event.findOne({where: {id: eventId}})
+    await event.update({
+      isActive: !event.isActive
+    })
+    res.json(event)
+  } catch (err) {
+    next(err)
+  }
+})
+
