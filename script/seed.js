@@ -17,7 +17,9 @@ async function seed() {
     User.create({username: 'abu', email: 'abu@email.com', password: '123'}),
     User.create({username: 'anna', email: 'anna@email.com', password: '123'}),
     User.create({username: 'danny', email: 'danny@email.com', password: '123'}),
-    User.create({username: 'juan', email: 'juan@email.com', password: '123'})
+    User.create({username: 'juan', email: 'juan@email.com', password: '123'}),
+    User.create({username: 'dio', email: 'dio@email.com', password: '123'}),
+    User.create({username: 'fuku', email: 'fuku@email.com', password: '123'}),
   ])
 
   console.log(`seeded ${users.length} users`)
@@ -29,7 +31,6 @@ async function seed() {
 
   await teams[0].addUsers([users[0], users[2], users[4]])
   await teams[1].addUsers([users[1], users[3], users[5]])
-  users.forEach((user, index) => user.setTeam(teams[index % 2]))
 
   console.log(`seeded ${teams.length} teams`)
 
@@ -37,24 +38,24 @@ async function seed() {
     Task.create({
       name: 'Charging Bull',
       description: 'Grab the bull by the horns',
-      lat: 40.7055648,
-      long: -74.0156334,
+      latitude: 40.7055648,
+      longitude: -74.0156334,
       address: 'New York, NY 10004',
       points: 600
     }),
     Task.create({
       name: 'New York Stock Exchange',
       description: 'Stand upon the steps of big business',
-      lat: 40.7054428,
-      long: -74.013037,
+      latitude: 40.7054428,
+      longitude: -74.013037,
       address: '11 Wall St, New York, NY 10005',
       points: 400
     }),
     Task.create({
       name: 'Burger King',
       description: 'The MOST IMPORTANT place to visit in FiDi',
-      lat: 40.704475,
-      long: -74.0122002,
+      latitude: 40.704475,
+      longitude: -74.0122002,
       address: '16 Beaver St, New York, NY 10004',
       points: 5000
     }),
@@ -62,8 +63,8 @@ async function seed() {
       name: 'National Museum of the American Indian',
       description:
         'Take some time to study the past, lest we doom ourselves to repeat it',
-      lat: 40.7029133,
-      long: -74.0122323,
+      latitude: 40.7029133,
+      longitude: -74.0122323,
       address: '1 Bowling Green, New York, NY 10004',
       points: 800
     }),
@@ -71,8 +72,8 @@ async function seed() {
       name: 'Staten Island Ferry',
       description:
         "Get through the gates, but don't board. We wouldn't want you to prematurely end your game",
-      lat: 40.7029133,
-      long: -74.0122323,
+      latitude: 40.7029133,
+      longitude: -74.0122323,
       address: '4 South St, New York, NY 10004',
       points: 1200
     }),
@@ -80,10 +81,26 @@ async function seed() {
       name: 'Starbucks',
       description:
         'An important foundation in American life, order one of our Veinte Matcha Frappuccinos only $18',
-      lat: 40.7029133,
-      long: -74.0122323,
+      latitude: 40.7029133,
+      longitude: -74.0122323,
       address: 'One Battery Park Plaza, New York, NY 10004',
       points: 4000
+    }),
+    Task.create({
+      name: 'Task 1',
+      description: 'Corner of Oasis and the building',
+      latitude: 40.704878,
+      longitude: -74.00888,
+      address: '10 Hanover Square, New York, NY 10005',
+      points: 100
+    }),
+    Task.create({
+      name: 'Task 2',
+      description: 'In the Kitchen',
+      latitude: 40.705387,
+      longitude: -74.008957,
+      address: '11 Hanover Square, New York, NY 10005',
+      points: 200
     })
   ])
 
@@ -95,24 +112,39 @@ async function seed() {
       description: 'Find the icons that best represent the Financial District',
       isActive: true,
       duration: 3600,
-      location: 'Financial District, NY'
+      location: 'Financial District, NY',
+      latitude: 40.7076124,
+      longitude: -74.009378,
+      latitudeDelta: 0.0148204,
+      longitudeDelta: 0.017598
     }),
     Event.create({
       name: 'American Life',
       description:
-        'What makes up American Life today? This hunt with show you the foundations of life in America',
+        'What makes up American Life today? This hunt with show you the foundations of daily life in America',
       isActive: false,
-      location: 'Manhattan, NY'
+      location: 'Manhattan, NY',
+      latitude: 40.7900869,
+      longitude: -73.9598295,
+      latitudeDelta: 0.178114,
+      longitudeDelta: 0.109254
+    }),
+    Event.create({
+      name: 'FSA Test Event',
+      description:
+        'The best place to test this app is right here in Fullstack Academy',
+      isActive: true,
+      location: '5 Hanover Square',
+      latitude: 40.7049444,
+      longitude: -74.0091771,
+      latitudeDelta: 0.0148204,
+      longitudeDelta: 0.017598
     })
   ])
 
   await events[0].addTasks([tasks[0], tasks[1], tasks[2]])
   await events[1].addTasks([tasks[3], tasks[4], tasks[5]])
-
-  for (let i = 0; i < tasks.length; i++) {
-    let eventIndex = i < 3 ? 0 : 1
-    await tasks[i].setEvent(events[eventIndex])
-  }
+  await events[2].addTasks([tasks[6], tasks[7]])
 
   console.log(`seeded ${events.length} events`)
 

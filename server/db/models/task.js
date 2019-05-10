@@ -9,11 +9,11 @@ const Task = db.define('task', {
   description: {
     type: Sequelize.TEXT
   },
-  lat: {
+  latitude: {
     type: Sequelize.FLOAT,
     allowNull: false
   },
-  long: {
+  longitude: {
     type: Sequelize.FLOAT,
     allowNull: false
   },
