@@ -1,164 +1,133 @@
-const router = require('express').Router()
-const {Event, EventTeam, Task} = require('../db/models')
-module.exports = router
+const router = require('express').Router();
+const {Event, EventTeam, Task} = require('../db/models');
+module.exports = router;
 
 // Get a single event a team signed up for
 // Note: the way this route is set up is eventId, followed by teamId
 // Think of like the name of the model: eventTeam, so event then team
 // So just make sure to follow the protocol
-router.get('/event/:eventId/team/:teamId', async (req, res, next) => {
+router.get('/:id', async (req, res, next) => {
   try {
-    const {teamId, eventId} = req.params
-    const eventTeam = await EventTeam.findOne({
-      where: {
-        teamId,
-        eventId
-      }
-    })
-    res.json(eventTeam)
+    const id = parseInt(req.params.id, 10);
+    const eventTeam = await EventTeam.findByPk(id);
+    // TODO: include tasks
+    res.json(eventTeam);
   } catch (err) {
-    next(err)
+    next(err);
   }
-})
+});
 
-router.get('/event/:eventId/team/:teamId/:status', async (req, res, next) => {
+// Get events for a team by a status. Supports querying COMPLETED, ACTIVE, UPCOMING (ACTIVE & PENDING), returns all by default
+router.get('/team/:teamId', async (req, res, next) => {
   try {
-    const {teamId, eventId} = req.params;
-    const status = req.params.status.toUpperCase();
-    const eventTeam = await EventTeam.findAll({
-      where: {
-        teamId,
-        eventId,
-        status
-      }
-    })
-    res.json(eventTeam)
+    const teamId = parseInt(req.params.teamId, 10);
+    const status = req.query.status.toUpperCase();
+    const eventTeam = await EventTeam.findAllByStatus(teamId, status)
+    res.json(eventTeam);
   } catch (err) {
-    next(err)
+    next(err);
   }
-})
+});
 
 // Get the event a team has joined and a copy of its tasks
-router.get('/event/:eventId/team/:teamId/tasks', async (req, res, next) => {
+router.get('/:id/tasks', async (req, res, next) => {
   try {
-    const {teamId, eventId} = req.params
+    const id = parseInt(req.params.id, 10);
     const eventTeam = await EventTeam.findOne({
       where: {
-        teamId,
-        eventId
+        id
       },
       include: {
         model: Task
       }
-    })
-    res.json(eventTeam)
+    });
+    res.json(eventTeam);
   } catch (err) {
-    next(err)
+    next(err);
   }
-})
+});
 
-// Have a team join an event
+// Have a team join an event, add all event tasks to EventTeamTasks
 router.post('/', async (req, res, next) => {
   try {
-    const {teamId, eventId} = req.body
-    const event = await Event.findOne({
-      where: {
-        id: eventId
-      }
-    })
+    const {teamId, eventId} = req.body;
+    const event = await Event.findByPk(eventId);
     if (event.isActive) {
       const tasks = await Task.findAll({
         where: {
-          eventId: eventId
+          eventId
         }
-      })
-      const eventTeam = await EventTeam.create({teamId, eventId})
-      eventTeam.addTasks(tasks)
-      res.json(eventTeam)
+      });
+      const eventTeam = await EventTeam.create({teamId, eventId});
+      eventTeam.addTasks(tasks);
+      res.json(eventTeam);
     } else {
-      res.status(401).send('This Event is Inactive')
+      res.status(401).send('This Event is Inactive');
     }
   } catch (err) {
-    next(err)
+    next(err);
   }
-})
+});
 
 // Remove a team from an event
-router.delete('/', async (req, res, next) => {
+router.delete('/:id', async (req, res, next) => {
   try {
-    const {teamId, eventId} = req.body
-    const eventTeam = await EventTeam.findOne({
-        where: {
-            teamId,
-            eventId
-        }
-    });
+    const id = parseInt(req.params.id, 10);
+    const eventTeam = await EventTeam.findByPk(id);
     eventTeam.destroy();
     res.sendStatus(204);
   } catch (err) {
-    next(err)
+    next(err);
   }
-})
+});
 
 // Starts the event
 // Will not allow more than one "ACTIVE" event
-router.put('/event/:eventId/team/:teamId/activate', async (req, res, next) => {
+router.put('/:id/activate', async (req, res, next) => {
   try {
-    const {teamId, eventId} = req.params;
+    const id = parseInt(req.params.id, 10);
     const check = await EventTeam.findOne({
       where: {
-        status: "ACTIVE"
+        id,
+        status: 'ACTIVE'
       }
     });
-    if (check) res.status(401).send('Only one event can be active at a time');
-    const eventTeam = await EventTeam.findOne({
-      where: {
-        teamId,
-        eventId
-      }
-    });
+    if (check) res.status(400).send('Only one event can be active at a time');
+    const eventTeam = await EventTeam.findByPk(id);
     const event = await Event.findOne({
-        where: {
-            id: eventId
-        }
+      where: {
+        id: eventTeam.eventId
+      }
     });
     await eventTeam.startEvent(event.duration);
+    await eventTeam.save();
+    console.log(eventTeam);
     res.json(eventTeam);
   } catch (err) {
-    next(err)
+    next(err);
   }
-})
+});
 
 // deactivates a team event
-router.put('/event/:eventId/team/:teamId/deactivate', async (req, res, next) => {
+router.put('/:id/deactivate', async (req, res, next) => {
   try {
-    const {teamId, eventId} = req.params;
-    const eventTeam = await EventTeam.findOne({
-      where: {
-        teamId,
-        eventId
-      }
-    });
+    const id = parseInt(req.params, 10);
+    const eventTeam = await EventTeam.findByPk(id);
     await eventTeam.deactivateEvent();
     res.json(eventTeam);
   } catch (err) {
-    next(err)
+    next(err);
   }
-})
+});
 
 // Completes an event
-router.put('/event/:eventId/team/:teamId/complete', async (req, res, next) => {
+router.put('/:id/complete', async (req, res, next) => {
   try {
-    const {teamId, eventId} = req.params
-    const eventTeam = await EventTeam.findOne({
-      where: {
-        teamId,
-        eventId
-      }
-    })
-    await eventTeam.update({status: "COMPLETED"})
-    res.json(eventTeam)
+    const id = parseInt(req.params, 10);
+    const eventTeam = await EventTeam.findByPk(id);
+    await eventTeam.update({status: 'COMPLETED'});
+    res.json(eventTeam);
   } catch (err) {
-    next(err)
+    next(err);
   }
-})
+});

@@ -7,46 +7,34 @@ module.exports = router
 // know that the route is made so that it's eventId, then teamId, and finally taskId
 // Think of like the name of the model: eventTeamTask, so event then team then task
 // So just make sure to follow the protocol
-router.get('/event/:eventId/team/:teamId/task/:taskId', async (req, res, next) => {
+router.get('/eventTeam/:eventTeamId/task/:taskId', async (req, res, next) => {
   try {
-    const {teamId, eventId, taskId} = req.params
-    const eventTeam = await EventTeam.findOne({
-        where: {
-            teamId,
-            eventId
-        }
-    })
+    const {eventTeamId, taskId} = req.params
     const eventTeamTask = await EventTeamTask.findOne({
       where: {
-        eventTeamId: eventTeam.id,
+        eventTeamId: eventTeamId,
         taskId
       }
-    })
-    res.json(eventTeamTask)
+    });
+    res.json(eventTeamTask);
   } catch (err) {
-    next(err)
+    next(err);
   }
 })
 
 // Toggle a task between complete and incomplete states
-router.put('/event/:eventId/team/:teamId/task/:taskId', async (req, res, next) => {
+router.put('/', async (req, res, next) => {
   try {
-    const {teamId, eventId, taskId} = req.params;
-    const eventTeam = await EventTeam.findOne({
-        where: {
-            teamId,
-            eventId
-        }
-    })
+    const { eventTeamId, taskId, completed } = req.body;
     const eventTeamTask = await EventTeamTask.findOne({
       where: {
-        eventTeamId: eventTeam.id,
+        eventTeamId,
         taskId
       }
-    })
+    });
     eventTeamTask.update({
-        completed: !eventTeamTask.completed
-    })
+        completed
+    });
     res.json(eventTeamTask);
   } catch (err) {
     next(err)

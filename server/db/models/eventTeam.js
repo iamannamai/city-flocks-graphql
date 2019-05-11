@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
+const Op = Sequelize.Op;
 
 // An event team represents a team participating in an event
 const EventTeam = db.define('event_team', {
@@ -9,11 +10,11 @@ const EventTeam = db.define('event_team', {
     autoIncrement: true
   },
   beginTime: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.BIGINT,
     defaultValue: null
   },
   endTime: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.BIGINT,
     defaultValue: null
   },
   status: {
@@ -32,17 +33,22 @@ EventTeam.prototype.startEvent = function(duration) {
   this.status = "ACTIVE";
   this.beginTime = Date.now();
   this.endTime = this.beginTime + (duration * 1000);
+  return this;
+}
+
+EventTeam.prototype.findAllByStatus = async function(teamId, status) {
+  const where = { teamId };
+
+  if (status === 'COMPLETED' || status === 'ACTIVE') {
+    where.status = status;
+  } else if (status === 'UPCOMING') {
+    where.status = {
+      [Op.in]: ['ACTIVE', 'PENDING']
+    }
+  }
+
+  const events = await EventTeam.findAll({ where });
+  return events;
 }
 
 module.exports = EventTeam
-
-// EventTeam.prototype.startEvent = function() {
-//   const event = Event.findByPk(this.eventId);
-//   const {duration} = event;
-//   const now = Date.now();
-
-//   this.beginTime = now;
-//   this.endTime = now + duration;
-
-//   EventTeam.update(this);
-// };
