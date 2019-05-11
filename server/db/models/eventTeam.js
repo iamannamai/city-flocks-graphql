@@ -10,11 +10,11 @@ const EventTeam = db.define('event_team', {
     autoIncrement: true
   },
   beginTime: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.BIGINT,
     defaultValue: null
   },
   endTime: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.BIGINT,
     defaultValue: null
   },
   status: {
@@ -33,6 +33,7 @@ EventTeam.prototype.startEvent = function(duration) {
   this.status = "ACTIVE";
   this.beginTime = Date.now();
   this.endTime = this.beginTime + (duration * 1000);
+  return this;
 }
 
 EventTeam.prototype.findAllByStatus = async function(teamId, status) {

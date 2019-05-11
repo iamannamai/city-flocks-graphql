@@ -100,6 +100,8 @@ router.put('/:id/activate', async (req, res, next) => {
       }
     });
     await eventTeam.startEvent(event.duration);
+    await eventTeam.save();
+    console.log(eventTeam);
     res.json(eventTeam);
   } catch (err) {
     next(err);
