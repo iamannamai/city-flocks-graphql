@@ -139,6 +139,17 @@ async function seed() {
       longitude: -74.0091771,
       latitudeDelta: 0.0148204,
       longitudeDelta: 0.017598
+    }),
+    Event.create({
+      name: 'Queens Home Test Event',
+      description:
+        'The best place to test this app is right here in Fullstack Academy',
+      isActive: true,
+      location: '8801 Queens Blvd, Queens, NY',
+      latitude: 40.7355974,
+      longitude: -73.8767265,
+      latitudeDelta: 0.0148204,
+      longitudeDelta: 0.017598
     })
   ])
 

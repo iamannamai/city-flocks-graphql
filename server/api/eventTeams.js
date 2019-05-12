@@ -2,10 +2,7 @@ const router = require('express').Router();
 const {Event, EventTeam, Task} = require('../db/models');
 module.exports = router;
 
-// Get a single event a team signed up for
-// Note: the way this route is set up is eventId, followed by teamId
-// Think of like the name of the model: eventTeam, so event then team
-// So just make sure to follow the protocol
+
 router.get('/:id', async (req, res, next) => {
   try {
     const id = parseInt(req.params.id, 10);
