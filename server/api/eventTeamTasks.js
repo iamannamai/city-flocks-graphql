@@ -33,7 +33,7 @@ router.put('/', async (req, res, next) => {
       }
     });
     eventTeamTask.update({
-        completed
+      completed
     });
     res.json(eventTeamTask);
   } catch (err) {
