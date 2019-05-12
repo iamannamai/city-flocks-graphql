@@ -99,8 +99,8 @@ router.post('/:teamId/addUser/', async (req, res, next) => {
     const {userId} = req.body
     const user = await User.findOne({where: {id: userId}})
     const team = await Team.findOne({where: {id: teamId}})
-    team.addUser(user)
-    res.json(team)
+    user.setTeam(team);
+    res.json(user);
   } catch (err) {
     next(err)
   }

@@ -98,7 +98,6 @@ router.put('/:id/activate', async (req, res, next) => {
     });
     await eventTeam.startEvent(event.duration);
     await eventTeam.save();
-    console.log(eventTeam);
     res.json(eventTeam);
   } catch (err) {
     next(err);
@@ -120,7 +119,7 @@ router.put('/:id/deactivate', async (req, res, next) => {
 // Completes an event
 router.put('/:id/complete', async (req, res, next) => {
   try {
-    const id = parseInt(req.params, 10);
+    const id = parseInt(req.params.id, 10);
     const eventTeam = await EventTeam.findByPk(id);
     await eventTeam.update({status: 'COMPLETED'});
     res.json(eventTeam);
