@@ -1,0 +1,9 @@
+module.exports = {
+  // listeners
+  BROADCAST_GAME_START: 'BROADCAST_GAME_START',
+  JOIN_TEAM_ROOM: 'JOIN_TEAM_ROOM',
+  LEAVE_TEAM_ROOM: 'LEAVE_TEAM_ROOM',
+
+  // emitters
+  GAME_START: 'GAME_START'
+}
