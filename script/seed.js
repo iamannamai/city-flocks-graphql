@@ -41,7 +41,8 @@ async function seed() {
       latitude: 40.7055648,
       longitude: -74.0156334,
       address: 'New York, NY 10004',
-      points: 600
+      points: 600,
+      keyPiece: 'LT'
     }),
     Task.create({
       name: 'New York Stock Exchange',
@@ -49,7 +50,8 @@ async function seed() {
       latitude: 40.7054428,
       longitude: -74.013037,
       address: '11 Wall St, New York, NY 10005',
-      points: 400
+      points: 400,
+      keyPiece: 'RA'
     }),
     Task.create({
       name: 'Burger King',
@@ -57,7 +59,8 @@ async function seed() {
       latitude: 40.704475,
       longitude: -74.0122002,
       address: '16 Beaver St, New York, NY 10004',
-      points: 5000
+      points: 5000,
+      keyPiece: 'BK'
     }),
     Task.create({
       name: 'National Museum of the American Indian',
@@ -142,7 +145,8 @@ async function seed() {
       latitude: 40.7076124,
       longitude: -74.009378,
       latitudeDelta: 0.0148204,
-      longitudeDelta: 0.017598
+      longitudeDelta: 0.017598,
+      masterKey: 'bullmarket'
     }),
     Event.create({
       name: 'American Life',
