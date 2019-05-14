@@ -117,18 +117,12 @@ router.put('/:id/deactivate', async (req, res, next) => {
 });
 
 // Completes an event
-router.put('/:id/complete', async (req, res, next) => {
+router.put('/:id/complete/simple', async (req, res, next) => {
   try {
     const id = parseInt(req.params.id, 10);
-    const timeBonus = parseInt(req.query.timeBonus,10) || 0;
+    const score = parseInt(req.query.score,10) || 0;
     const eventTeam = await EventTeam.findByPk(id);
-    const eventTeamTasks = await EventTeamTask.findAll({
-      where: {
-        eventTeamId: id
-      }
-    });
-    const taskPoints = eventTeamTasks.reduce((sum,task) => sum + task, 0);
-    await eventTeam.completeEvent(taskPoints + timeBonus);
+    await eventTeam.completeEvent(score);
     res.json(eventTeam);
   } catch (err) {
     next(err);
