@@ -32,6 +32,14 @@ const Event = db.define('event', {
     type: Sequelize.INTEGER,
     defaultValue: 2 * 60 * 60,
     allowNull: false
+  },
+  timeBonusMultiplier: {
+    type: Sequelize.INTEGER,
+    defaultValue: 2
+  },
+  completionBonus: {
+    type: Sequelize.INTEGER,
+    defaultValue: 5000
   }
 })
 

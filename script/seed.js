@@ -41,7 +41,8 @@ async function seed() {
       latitude: 40.7055648,
       longitude: -74.0156334,
       address: 'New York, NY 10004',
-      points: 600
+      points: 600,
+      keyPiece: 'LT'
     }),
     Task.create({
       name: 'New York Stock Exchange',
@@ -49,7 +50,8 @@ async function seed() {
       latitude: 40.7054428,
       longitude: -74.013037,
       address: '11 Wall St, New York, NY 10005',
-      points: 400
+      points: 400,
+      keyPiece: 'RA'
     }),
     Task.create({
       name: 'Burger King',
@@ -57,7 +59,8 @@ async function seed() {
       latitude: 40.704475,
       longitude: -74.0122002,
       address: '16 Beaver St, New York, NY 10004',
-      points: 5000
+      points: 5000,
+      keyPiece: 'BK'
     }),
     Task.create({
       name: 'National Museum of the American Indian',
@@ -92,7 +95,8 @@ async function seed() {
       latitude: 40.704878,
       longitude: -74.00888,
       address: '10 Hanover Square, New York, NY 10005',
-      points: 100
+      points: 100,
+      keyPiece: 'Full'
     }),
     Task.create({
       name: 'Task 2',
@@ -100,8 +104,33 @@ async function seed() {
       latitude: 40.705254,
       longitude: -74.009076,
       address: '11 Hanover Square, New York, NY 10005',
+      points: 200,
+      keyPiece: 'Stack'
+    }),
+    Task.create({
+      name: 'Queens 1',
+      description: 'Corner near Sushi Island',
+      latitude: 40.735026,
+      longitude: -73.875643,
+      address: '10 Hanover Square, New York, NY 10005',
+      points: 100
+    }),
+    Task.create({
+      name: 'Queens 2',
+      description: 'near 56th St',
+      latitude: 40.734611,
+      longitude: -73.874956,
+      address: '11 Hanover Square, New York, NY 10005',
       points: 200
-    })
+    }),
+    Task.create({
+      name: 'Queens 3',
+      description: 'near 57th St',
+      latitude: 40.7343156,
+      longitude: -73.8752318,
+      address: '11 Hanover Square, New York, NY 10005',
+      points: 200
+    }),
   ])
 
   console.log(`seeded ${tasks.length} tasks`)
@@ -116,7 +145,8 @@ async function seed() {
       latitude: 40.7076124,
       longitude: -74.009378,
       latitudeDelta: 0.0148204,
-      longitudeDelta: 0.017598
+      longitudeDelta: 0.017598,
+      masterKey: 'bullmarket'
     }),
     Event.create({
       name: 'American Life',
@@ -133,10 +163,22 @@ async function seed() {
       name: 'FSA Test Event',
       description:
         'The best place to test this app is right here in Fullstack Academy',
+        isActive: true,
+        location: '5 Hanover Square, New York, NY',
+        latitude: 40.7049444,
+        longitude: -74.0091771,
+        latitudeDelta: 0.0148204,
+        longitudeDelta: 0.017598,
+        masterKey: 'fullstack'
+    }),
+    Event.create({
+      name: 'Queens Home Test Event',
+      description:
+        'Queens Place Mall test',
       isActive: true,
-      location: '5 Hanover Square, New York, NY',
-      latitude: 40.7049444,
-      longitude: -74.0091771,
+      location: '8801 Queens Blvd, Queens, NY',
+      latitude: 40.7355974,
+      longitude: -73.8767265,
       latitudeDelta: 0.0148204,
       longitudeDelta: 0.017598
     })
@@ -145,6 +187,7 @@ async function seed() {
   await events[0].addTasks([tasks[0], tasks[1], tasks[2]])
   await events[1].addTasks([tasks[3], tasks[4], tasks[5]])
   await events[2].addTasks([tasks[6], tasks[7]])
+  await events[3].addTasks([tasks[8], tasks[9], tasks[10]])
 
   console.log(`seeded ${events.length} events`)
 

@@ -1,11 +1,8 @@
 const router = require('express').Router();
-const {Event, EventTeam, Task} = require('../db/models');
+const {Event, EventTeam, EventTeamTask, Task} = require('../db/models');
 module.exports = router;
 
-// Get a single event a team signed up for
-// Note: the way this route is set up is eventId, followed by teamId
-// Think of like the name of the model: eventTeam, so event then team
-// So just make sure to follow the protocol
+
 router.get('/:id', async (req, res, next) => {
   try {
     const id = parseInt(req.params.id, 10);
@@ -123,8 +120,9 @@ router.put('/:id/deactivate', async (req, res, next) => {
 router.put('/:id/complete', async (req, res, next) => {
   try {
     const id = parseInt(req.params.id, 10);
+    const score = parseInt(req.query.score,10) || 0;
     const eventTeam = await EventTeam.findByPk(id);
-    await eventTeam.update({status: 'COMPLETED'});
+    await eventTeam.completeEvent(score);
     res.json(eventTeam);
   } catch (err) {
     next(err);
