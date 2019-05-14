@@ -117,7 +117,7 @@ router.put('/:id/deactivate', async (req, res, next) => {
 });
 
 // Completes an event
-router.put('/:id/complete/simple', async (req, res, next) => {
+router.put('/:id/complete', async (req, res, next) => {
   try {
     const id = parseInt(req.params.id, 10);
     const score = parseInt(req.query.score,10) || 0;
