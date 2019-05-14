@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const {Event, EventTeam, Task} = require('../db/models');
+const {Event, EventTeam, EventTeamTask, Task} = require('../db/models');
 module.exports = router;
 
 
@@ -120,8 +120,15 @@ router.put('/:id/deactivate', async (req, res, next) => {
 router.put('/:id/complete', async (req, res, next) => {
   try {
     const id = parseInt(req.params.id, 10);
+    const timeBonus = parseInt(req.query.timeBonus,10) || 0;
     const eventTeam = await EventTeam.findByPk(id);
-    await eventTeam.update({status: 'COMPLETED'});
+    const eventTeamTasks = await EventTeamTask.findAll({
+      where: {
+        eventTeamId: id
+      }
+    });
+    const taskPoints = eventTeamTasks.reduce((sum,task) => sum + task, 0);
+    await eventTeam.completeEvent(taskPoints + timeBonus);
     res.json(eventTeam);
   } catch (err) {
     next(err);

@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {EventTeam,EventTeamTask} = require('../db/models')
+const {EventTeamTask} = require('../db/models')
 module.exports = router
 
 // Get a single task from a single event a team signed up for

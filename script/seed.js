@@ -92,7 +92,8 @@ async function seed() {
       latitude: 40.704878,
       longitude: -74.00888,
       address: '10 Hanover Square, New York, NY 10005',
-      points: 100
+      points: 100,
+      keyPiece: 'Full'
     }),
     Task.create({
       name: 'Task 2',
@@ -100,7 +101,8 @@ async function seed() {
       latitude: 40.705254,
       longitude: -74.009076,
       address: '11 Hanover Square, New York, NY 10005',
-      points: 200
+      points: 200,
+      keyPiece: 'Stack'
     }),
     Task.create({
       name: 'Queens 1',
@@ -157,12 +159,13 @@ async function seed() {
       name: 'FSA Test Event',
       description:
         'The best place to test this app is right here in Fullstack Academy',
-      isActive: true,
-      location: '5 Hanover Square, New York, NY',
-      latitude: 40.7049444,
-      longitude: -74.0091771,
-      latitudeDelta: 0.0148204,
-      longitudeDelta: 0.017598
+        isActive: true,
+        location: '5 Hanover Square, New York, NY',
+        latitude: 40.7049444,
+        longitude: -74.0091771,
+        latitudeDelta: 0.0148204,
+        longitudeDelta: 0.017598,
+        masterKey: 'fullstack'
     }),
     Event.create({
       name: 'Queens Home Test Event',

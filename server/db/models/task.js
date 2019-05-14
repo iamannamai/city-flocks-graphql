@@ -23,6 +23,9 @@ const Task = db.define('task', {
   points: {
     type: Sequelize.INTEGER,
     allowNull: false
+  },
+  keyPiece: {
+    type: Sequelize.STRING
   }
 })
 

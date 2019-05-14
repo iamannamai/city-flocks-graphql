@@ -20,6 +20,14 @@ const EventTeam = db.define('event_team', {
   status: {
     type: Sequelize.ENUM(['PENDING','ACTIVE','COMPLETED']),
     defaultValue: 'PENDING'
+  },
+  score: {
+    type: Sequelize.INTEGER,
+    defaultValue: 0
+  },
+  masterKey: {
+    type: Sequelize.STRING,
+    defaultValue: 'FSA'
   }
 })
 
@@ -33,6 +41,12 @@ EventTeam.prototype.startEvent = function(duration) {
   this.status = "ACTIVE";
   this.beginTime = Date.now();
   this.endTime = this.beginTime + (duration * 1000);
+  return this;
+}
+
+EventTeam.prototype.completeEvent = function(score) {
+  this.status = "COMPLETED";
+  this.score = score;
   return this;
 }
 
