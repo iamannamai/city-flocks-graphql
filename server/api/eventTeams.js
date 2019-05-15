@@ -111,6 +111,8 @@ router.put('/:id/complete', async (req, res, next) => {
     const score = parseInt(req.query.score,10) || 0;
     const eventTeam = await EventTeam.findByPk(id);
     await eventTeam.completeEvent(score);
+    await eventTeam.save();
+    console.log(eventTeam);
     res.json(eventTeam);
   } catch (err) {
     next(err);
