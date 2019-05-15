@@ -42,7 +42,7 @@ async function seed() {
       longitude: -74.0156334,
       address: 'New York, NY 10004',
       points: 600,
-      keyPiece: 'LT'
+      keyPiece: 'LL'
     }),
     Task.create({
       name: 'New York Stock Exchange',
@@ -96,7 +96,7 @@ async function seed() {
       longitude: -74.00888,
       address: '10 Hanover Square, New York, NY 10005',
       points: 100,
-      keyPiece: 'Full'
+      keyPiece: 'F'
     }),
     Task.create({
       name: 'Task 2',
@@ -105,7 +105,7 @@ async function seed() {
       longitude: -74.009076,
       address: '11 Hanover Square, New York, NY 10005',
       points: 200,
-      keyPiece: 'Stack'
+      keyPiece: 'S'
     }),
     Task.create({
       name: 'Queens 1',
@@ -145,8 +145,9 @@ async function seed() {
       latitude: 40.7076124,
       longitude: -74.009378,
       latitudeDelta: 0.0148204,
-      longitudeDelta: 0.017598,
-      masterKey: 'bullmarket'
+	  longitudeDelta: 0.017598,
+	  masterRiddle: 'When you buy buy buy',
+      masterKey: 'bull market'
     }),
     Event.create({
       name: 'American Life',
