@@ -24,10 +24,6 @@ const EventTeam = db.define('event_team', {
   score: {
     type: Sequelize.INTEGER,
     defaultValue: 0
-  },
-  masterKey: {
-    type: Sequelize.STRING,
-    defaultValue: 'FSA'
   }
 })
 

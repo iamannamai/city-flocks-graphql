@@ -40,8 +40,15 @@ const Event = db.define('event', {
   completionBonus: {
     type: Sequelize.INTEGER,
     defaultValue: 5000
+  },
+  masterKey: {
+    type: Sequelize.STRING,
+    defaultValue: 'Fullstack'
+  },
+  masterRiddle: {
+    type: Sequelize.STRING,
+    defaultValue: 'Two halves together'
   }
 })
-
 
 module.exports = Event
