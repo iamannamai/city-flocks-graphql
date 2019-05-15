@@ -66,18 +66,6 @@ router.post('/', async (req, res, next) => {
   }
 });
 
-// Remove a team from an event
-router.delete('/:id', async (req, res, next) => {
-  try {
-    const id = parseInt(req.params.id, 10);
-    const eventTeam = await EventTeam.findByPk(id);
-    eventTeam.destroy();
-    res.sendStatus(204);
-  } catch (err) {
-    next(err);
-  }
-});
-
 // Starts the event
 // Will not allow more than one "ACTIVE" event
 router.put('/:id/activate', async (req, res, next) => {
@@ -124,6 +112,18 @@ router.put('/:id/complete', async (req, res, next) => {
     const eventTeam = await EventTeam.findByPk(id);
     await eventTeam.completeEvent(score);
     res.json(eventTeam);
+  } catch (err) {
+    next(err);
+  }
+});
+
+// Remove a team from an event
+router.delete('/:id', async (req, res, next) => {
+  try {
+    const id = parseInt(req.params.id, 10);
+    const eventTeam = await EventTeam.findByPk(id);
+    eventTeam.destroy();
+    res.sendStatus(204);
   } catch (err) {
     next(err);
   }
