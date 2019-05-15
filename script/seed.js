@@ -92,15 +92,15 @@ async function seed() {
     Task.create({
       name: 'Task 1',
       description: 'Corner of Oasis and the building',
-      latitude: 40.704878,
-      longitude: -74.00888,
+      latitude: 40.704966,
+      longitude: -74.008944,
       address: '10 Hanover Square, New York, NY 10005',
       points: 100,
       keyPiece: 'F'
     }),
     Task.create({
       name: 'Task 2',
-      description: 'In the Kitchen',
+      description: 'Not the Kitchen',
       latitude: 40.705254,
       longitude: -74.009076,
       address: '11 Hanover Square, New York, NY 10005',
@@ -131,6 +131,24 @@ async function seed() {
       address: '11 Hanover Square, New York, NY 10005',
       points: 200
     }),
+    Task.create({
+      name: 'Task 3',
+      description: 'Exchange & Hanover',
+      latitude: 40.705577,
+      longitude: -74.009083,
+      address: '3 Hanover Square, New York, NY 10005',
+      points: 400,
+      keyPiece: 'T'
+    }),
+    Task.create({
+      name: 'Task 3',
+      description: 'Bingo Deli',
+      latitude: 40.703944,
+      longitude: -74.010442,
+      address: '95 Pearl St, New York, NY 10005',
+      points: 400,
+      keyPiece: 'K'
+    })
   ])
 
   console.log(`seeded ${tasks.length} tasks`)
@@ -187,8 +205,9 @@ async function seed() {
 
   await events[0].addTasks([tasks[0], tasks[1], tasks[2]])
   await events[1].addTasks([tasks[3], tasks[4], tasks[5]])
-  await events[2].addTasks([tasks[6], tasks[7]])
+  await events[2].addTasks([tasks[6], tasks[7], tasks[11], tasks[12]]);
   await events[3].addTasks([tasks[8], tasks[9], tasks[10]])
+
 
   console.log(`seeded ${events.length} events`)
 
