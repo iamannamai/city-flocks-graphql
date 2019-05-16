@@ -100,9 +100,9 @@ async function seed() {
     }),
     Task.create({
       name: 'Task 2',
-      description: 'Not the Kitchen',
-      latitude: 40.705254,
-      longitude: -74.009076,
+      description: 'In the Kitchen',
+      latitude: 40.705217,
+      longitude: -74.009342,
       address: '11 Hanover Square, New York, NY 10005',
       points: 200,
       keyPiece: 'S'
