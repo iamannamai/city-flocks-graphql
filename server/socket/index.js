@@ -1,9 +1,8 @@
 const {
   addToEventTeamSetAsync,
   getSetMembersAsync,
-  addPlayerToEventTeamHashAsync,
   deletePlayerFromEventTeamHashAsync,
-  getEventTeamHashValsAsync
+  setAndGetPlayerHash
 } = require('../redis');
 
 const {
@@ -49,12 +48,7 @@ module.exports = io => {
     });
 
     socket.on(ENTER_GEOFENCE, async ({eventTeamId, username, geoIdentifier}) => {
-      // TODO make this multi transaction
-      await addPlayerToEventTeamHashAsync(eventTeamId, username, geoIdentifier);
-
-      // grab players from hash
-      const players = await getSetMembersAsync(eventTeamId);
-      const locations = await getEventTeamHashValsAsync(eventTeamId);
+      const [_, players, locations] = await setAndGetPlayerHash(eventTeamId, username, geoIdentifier);
       console.log(players, locations);
 
       // emit event to confirm whether all players present
@@ -69,12 +63,12 @@ module.exports = io => {
       await deletePlayerFromEventTeamHashAsync(eventTeamId, username);
     });
 
-    socket.on(BROADCAST_TASK_COMPLETE, (taskId) => {
+    socket.on(BROADCAST_TASK_COMPLETE, taskId => {
       // send task completion message so client can dispatch
-      socket.broadcast.to(teamRoom).emit(COMPLETE_TASK, { taskId });
+      socket.broadcast.to(teamRoom).emit(COMPLETE_TASK, taskId);
     });
 
-    socket.on(BROADCAST_END_GAME, ({eventTeamId, score}) => {
+    socket.on(BROADCAST_END_GAME, score => {
       // send end game details so other clients can dispatch
       socket.broadcast.to(teamRoom).emit(END_GAME, score);
     });
