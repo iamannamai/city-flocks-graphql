@@ -169,7 +169,7 @@ async function seed() {
       longitude: -74.000716,
       address: '177A Bleecker Street, New York, NY 10012',
       points: 800,
-      keyPiece: 'SM'
+      keyPiece: 'S'
     }),
     Task.create({
       name: 'Stark Tower',
@@ -197,6 +197,15 @@ async function seed() {
       address: 'The Mall, New York, NY 10024',
       points: 500,
       keyPiece: 'S'
+    }),
+    Task.create({
+      name: 'New York City Police Department',
+      description: "Don't be blue if you get to this HQ",
+      latitude: 40.712227,
+      longitude: -74.002107,
+      address: '1 Police Plaza Path, New York, NY 10007',
+      points: 200,
+      keyPiece: 'M'
     })
   ])
 
@@ -256,8 +265,8 @@ async function seed() {
         'There was an idea to bring together a group of remarkable people. To make them work together when we needed them to, to fight the battles that we never could.',
       isActive: true,
       location: 'Manhattan, NY',
-      latitude: 40.751925,
-      longitude: -73.977806,
+      latitude: 40.734229,
+      longitude: -73.991902,
       latitudeDelta: 0.178114,
       longitudeDelta: 0.109254,
       masterRiddle: 'There was an idea to bring together a group of remarkable people, to see if we could become something more',
@@ -269,7 +278,7 @@ async function seed() {
   await events[1].addTasks([tasks[3], tasks[4], tasks[5]])
   await events[2].addTasks([tasks[6], tasks[7], tasks[11], tasks[12]]);
   await events[3].addTasks([tasks[8], tasks[9], tasks[10]])
-  await events[4].addTasks([tasks[0], tasks[13], tasks[14], tasks[15], tasks[16]])
+  await events[4].addTasks([tasks[0], tasks[13], tasks[14], tasks[15], tasks[16], tasks[17]])
 
 
   console.log(`seeded ${events.length} events`)
