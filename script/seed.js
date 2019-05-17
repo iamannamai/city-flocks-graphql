@@ -18,19 +18,32 @@ async function seed() {
     User.create({username: 'anna', email: 'anna@email.com', password: '123'}),
     User.create({username: 'danny', email: 'danny@email.com', password: '123'}),
     User.create({username: 'juan', email: 'juan@email.com', password: '123'}),
-    User.create({username: 'dio', email: 'dio@email.com', password: '123'}),
-    User.create({username: 'fuku', email: 'fuku@email.com', password: '123'}),
+    // User.create({username: 'dio', email: 'dio@email.com', password: '123'}),
+    // User.create({username: 'fuku', email: 'fuku@email.com', password: '123'}),
+    User.create({username: 'tonystark22', email: 'metalman@scavengers.com', password: '123'}),
+    User.create({username: 'steverogers_usa', email: 'cap@scavengers.com', password: '123'}),
+    User.create({username: 'drbanner', email: 'hulk@scavengers.com', password: '123'}),
+    User.create({username: 'th0r', email: 'thor@scavengers.com', password: '123'}),
+    User.create({username: 'black_widow', email: 'natasha@scavengers.com', password: '123'}),
+    User.create({username: 'pepperpotts', email: 'pepper@scavengers.com', password: '123'}),
+    User.create({username: 'clintbarton', email: 'hawkeye@scavengers.com', password: '123'}),
+    User.create({username: 'jamesrhodes', email: 'warmachine@scavengers.com', password: '123'}),
+    User.create({username: 'tchalla', email: 'bpanther@scavengers.com', password: '123'}),
+    User.create({username: 'peterparker', email: 'spidey@scavengers.com', password: '123'}),
+    User.create({username: 'scottlang', email: 'slant@scavengers.com', password: '123'}),
   ])
 
   console.log(`seeded ${users.length} users`)
 
   const teams = await Promise.all([
     Team.create({name: 'Team 1'}),
-    Team.create({name: 'Team 2'})
+	Team.create({name: 'Team 2'}),
+	Team.create({name: 'ScAvengers'})
   ])
 
   await teams[0].addUsers([users[0], users[2], users[4]])
   await teams[1].addUsers([users[1], users[3], users[5]])
+  await teams[2].addUsers([users[6], users[7], users[8], users[9], users[10], users[11]])
 
   console.log(`seeded ${teams.length} teams`)
 
@@ -42,7 +55,7 @@ async function seed() {
       longitude: -74.0156334,
       address: 'New York, NY 10004',
       points: 600,
-      keyPiece: 'LL'
+      keyPiece: 'LA'
     }),
     Task.create({
       name: 'New York Stock Exchange',
@@ -148,6 +161,42 @@ async function seed() {
       address: '95 Pearl St, New York, NY 10005',
       points: 400,
       keyPiece: 'K'
+    }),
+    Task.create({
+      name: 'Sanctum Sanctorum',
+      description: 'A very strange place...',
+      latitude: 40.729037,
+      longitude: -74.000716,
+      address: '177A Bleecker Street, New York, NY 10012',
+      points: 800,
+      keyPiece: 'SM'
+    }),
+    Task.create({
+      name: 'Stark Tower',
+      description: 'The tower of power',
+      latitude: 40.755947,
+      longitude: -73.985772,
+      address: '4 Times Square, New York, NY 10036',
+      points: 1200,
+      keyPiece: 'E'
+    }),
+    Task.create({
+      name: 'Park Ave near Grand Central',
+      description: 'A grand place to defend against invasions',
+      latitude: 40.751925,
+      longitude: -73.977806,
+      address: '120 Park Ave, New York, NY 10017',
+      points: 400,
+      keyPiece: 'B'
+    }),
+    Task.create({
+      name: 'Bethesda Terrace, Central Park',
+      description: 'An nice terrace in the park to tie things up',
+      latitude: 40.773794,
+      longitude: -73.970951,
+      address: 'The Mall, New York, NY 10024',
+      points: 500,
+      keyPiece: 'S'
     })
   ])
 
@@ -179,7 +228,7 @@ async function seed() {
       longitudeDelta: 0.109254
     }),
     Event.create({
-      name: 'FSA Test Event',
+      name: 'Fuller Stack',
       description:
         'The best place to test this app is right here in Fullstack Academy',
         isActive: true,
@@ -191,15 +240,28 @@ async function seed() {
         masterKey: 'fullstack'
     }),
     Event.create({
-      name: 'Queens Home Test Event',
+      name: 'Queens Get The Money',
       description:
-        'Queens Place Mall test',
+        'Queens Boulevard represent, represent. A Tribe Called Quest represent, represent',
       isActive: true,
       location: '8801 Queens Blvd, Queens, NY',
       latitude: 40.7355974,
       longitude: -73.8767265,
       latitudeDelta: 0.0148204,
       longitudeDelta: 0.017598
+    }),
+    Event.create({
+      name: 'Friend Game',
+      description:
+        'There was an idea to bring together a group of remarkable people. To make them work together when we needed them to, to fight the battles that we never could.',
+      isActive: true,
+      location: 'Manhattan, NY',
+      latitude: 40.751925,
+      longitude: -73.977806,
+      latitudeDelta: 0.178114,
+      longitudeDelta: 0.109254,
+      masterRiddle: 'There was an idea to bring together a group of remarkable people, to see if we could become something more',
+      masterKey: 'Assemble'
     })
   ])
 
@@ -207,6 +269,7 @@ async function seed() {
   await events[1].addTasks([tasks[3], tasks[4], tasks[5]])
   await events[2].addTasks([tasks[6], tasks[7], tasks[11], tasks[12]]);
   await events[3].addTasks([tasks[8], tasks[9], tasks[10]])
+  await events[4].addTasks([tasks[0], tasks[13], tasks[14], tasks[15], tasks[16]])
 
 
   console.log(`seeded ${events.length} events`)
