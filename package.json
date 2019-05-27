@@ -34,10 +34,13 @@
   "author": "Fullstack Academy of Code",
   "license": "MIT",
   "dependencies": {
+    "apollo-server-express": "^2.5.0",
     "compression": "^1.7.3",
     "connect-session-sequelize": "^6.0.0",
     "express": "^4.16.4",
     "express-session": "^1.15.1",
+    "graphql": "^14.3.1",
+    "graphql-tools": "^4.0.4",
     "history": "^4.9.0",
     "morgan": "^1.9.1",
     "passport": "^0.4.0",
