@@ -4,7 +4,6 @@ const morgan = require('morgan');
 const compression = require('compression');
 const session = require('express-session');
 const passport = require('passport');
-const {graphqlExpress, graphiqlExpress} = require('apollo-server-express');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 const db = require('./db');
 const sessionStore = new SequelizeStore({db});
@@ -77,13 +76,10 @@ const createApp = () => {
 
   // auth and api routes
   app.use('/auth', require('./auth'));
+  schema.applyMiddleware({
+    app
+  });
   app.use('/api', require('./api'));
-
-  /*
-  app.use('/graphql', graphqlExpress({ schema }));
-
-  app.get('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
-  */
 
   // static file-serving middleware
   app.use(express.static(path.join(__dirname, '..', 'public')));
