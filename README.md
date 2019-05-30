@@ -1,8 +1,21 @@
 # City Flocks
 
-## Heroku Link
+## Starting Server
+Run the following in terminal.
+1. `npm i`
+2. `createdb city-flocks-graphql` - this assumes you have PostgreSQL set up in your local developer environment
+3. `redis-server` - again, this assumes you have Redis installed on your local developer environment
+4. `npm run seed` - will seed the city-flocks-graphql database with user and event information
+5. `npm run start-server` - starts the server in development mode
 
-http://city-flocks-server.herokuapp.com/api/users
+Once all of the above are complete, you should be able to access routes via Postman
+
+## Graphql Playground
+The GraphQL playground allows you to interact with available queries and view available schema.
+**LocalDev:** http://localhost:8080/graphql
+
+
+
 
 # Boilermaker
 
