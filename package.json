@@ -1,5 +1,5 @@
 {
-  "name": "city-flocks-server",
+  "name": "city-flocks-graphql",
   "version": "2.0.0",
   "description": "City Flocks project with graphql routes",
   "engines": {
