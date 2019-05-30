@@ -1,4 +1,4 @@
-const { Events } = require('../db/models');
+const { Event } = require('../db/models');
 
 const EVENT_TYPE = `
   type Event {
@@ -12,7 +12,7 @@ const resolvers = {
   Query: {
     events: async (root, args, context, info) => {
       try {
-        const events = await Events.findAll();
+        const events = await Event.findAll();
         return events;
       } catch (error) {
         console.error('Unable to complete request to find all events');
