@@ -1,7 +1,7 @@
 {
-  "name": "city-flocks-server",
+  "name": "city-flocks-graphql",
   "version": "2.0.0",
-  "description": "Some boilerplate code to get you started - get shakin'!",
+  "description": "City Flocks project with graphql routes",
   "engines": {
     "node": ">= 7.0.0"
   },
@@ -34,11 +34,14 @@
   "author": "Fullstack Academy of Code",
   "license": "MIT",
   "dependencies": {
+    "apollo-server-express": "^2.5.0",
     "compression": "^1.7.3",
     "connect-session-sequelize": "^6.0.0",
     "express": "^4.16.4",
     "express-session": "^1.15.1",
+    "graphql": "^14.3.1",
     "history": "^4.9.0",
+    "lodash": "^4.17.11",
     "morgan": "^1.9.1",
     "passport": "^0.4.0",
     "passport-google-oauth": "^2.0.0",
