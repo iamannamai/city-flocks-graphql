@@ -1,20 +1,35 @@
-const { Team } = require('../db/models');
+const { Team, User } = require('../db/models');
 
 const TEAM_TYPE = `
   type Team {
     id: ID!
     name: String!
+    users: [User]
   }
 `;
 
 const resolvers = {
   Query: {
-    teams: async (root, args, context, info) => {
+    team: async (root, args, context, info) => {
       try {
-        const teams = await Team.findAll();
-        return teams;
+        const id = parseInt(args.id, 10);
+        const team = await Team.findByPk(id);
+        return team;
       } catch (error) {
-        console.error('Unable to complete request to find all teams');
+        console.error('Unable to complete request to find team');
+      }
+    }
+  },
+  Team: {
+    users: async (root, args, context, info) => {
+      try {
+        const teamId = parseInt(root.teamId, 10);
+        const users = await User.findAll({
+          where: { teamId }
+        });
+        return users;
+      } catch (error) {
+        console.error('Unable to complete request to find users on teams');
       }
     }
   }

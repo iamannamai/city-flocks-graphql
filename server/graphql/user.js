@@ -13,7 +13,9 @@ const resolvers = {
   Query: {
     users: async (root, args, context, info) => {
       try {
-        const users = await User.findAll();
+        const users = await User.findAll({
+          attributes: ['id', 'email', 'username', 'teamId']
+        });
         return users;
       } catch (error) {
         console.error('Unable to complete request to find all users');
@@ -22,7 +24,9 @@ const resolvers = {
     user: async (root, args, context, info) => {
       try {
         const id = parseInt(args.id, 10);
-        const user = await User.findByPk(id);
+        const user = await User.findByPk(id, {
+          attributes: ['id', 'email', 'username', 'teamId']
+        });
         return user;
       } catch (error) {
         console.error('Unable to complete request to find user');
@@ -35,10 +39,11 @@ const resolvers = {
         if (!root.teamId) return null;
 
         const id = parseInt(root.teamId, 10);
-        const team = await Team.findByPk(id);
+        const { teamLoader } = context;
+        const team = await teamLoader.load(id);
         return team;
       } catch (error) {
-        console.error('Unable to complete request to find team');
+        console.error('Unable to complete request to find team:', error);
       }
     }
   }
