@@ -23,7 +23,7 @@ const resolvers = {
   Team: {
     users: async (root, args, context, info) => {
       try {
-        const teamId = parseInt(root.teamId, 10);
+        const teamId = parseInt(root.id, 10);
         const users = await User.findAll({
           where: { teamId }
         });
