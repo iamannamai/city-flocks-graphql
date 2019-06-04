@@ -13,7 +13,8 @@ const resolvers = {
     team: async (root, args, context, info) => {
       try {
         const id = parseInt(args.id, 10);
-        const team = await Team.findByPk(id);
+        const { teamLoader } = context;
+        const team = await teamLoader.load(id);
         return team;
       } catch (error) {
         console.error('Unable to complete request to find team');
@@ -25,7 +26,8 @@ const resolvers = {
       try {
         const teamId = parseInt(root.id, 10);
         const users = await User.findAll({
-          where: { teamId }
+          where: { teamId },
+          attributes: ['id', 'email', 'username', 'teamId']
         });
         return users;
       } catch (error) {

@@ -22,7 +22,7 @@ const typeDefs = [Query, User, Team, Event];
 const schema = new ApolloServer({
   typeDefs,
   resolvers,
-  context: loaders,
+  context: () => loaders(),
   playground: {
     endpoint: '/graphql',
     settings: {

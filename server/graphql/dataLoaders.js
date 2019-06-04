@@ -22,7 +22,7 @@ const batchLoadTeams = teamIds =>
       return teamIds.map(id => teamDict[id]);
     });
 
-module.exports = {
+module.exports = () => ({
   userLoader: new DataLoader(keys => batchLoadUsers(keys)),
   teamLoader: new DataLoader(keys => batchLoadTeams(keys)),
-}
+});
