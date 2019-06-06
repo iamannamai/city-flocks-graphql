@@ -7,7 +7,7 @@ const loaders = require('./dataLoaders');
 
 const Query = `
   type Query {
-    users: [User]!
+    availableUsers: [User]!
     user(id: ID!): User
     events: [Event]!
     event(id: ID): Event
@@ -16,9 +16,16 @@ const Query = `
   }
 `;
 
+const Mutation = `
+  type Mutation {
+    createTeam(name: String!, userId: ID!): Team!
+    addUserToTeam(teamId: ID!, userId: ID!): User!
+  }
+`;
+
 const resolvers = merge({}, userResolvers, teamResolvers, eventResolvers);
 
-const typeDefs = [Query, User, Team, Event];
+const typeDefs = [Query, Mutation, User, Team, Event];
 const schema = new ApolloServer({
   typeDefs,
   resolvers,
