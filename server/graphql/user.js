@@ -46,6 +46,21 @@ const resolvers = {
         console.error('Unable to complete request to find team:', error);
       }
     }
+  },
+  Mutation: {
+    addUserToTeam: async (root, args, context, info) => {
+      try {
+        const { teamId, userId } = args;
+        const [ team, user ] = await Promise.all([
+          Team.findByPk(teamId),
+          User.findByPk(userId)
+        ]);
+        user.setTeam(team);
+        return user;
+      } catch (error) {
+        console.error('Unable to complete request to add user to team');
+      }
+    }
   }
 }
 

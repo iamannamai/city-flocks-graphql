@@ -1,4 +1,4 @@
-const { Team, User } = require('../db/models');
+const {Team, User} = require('../db/models');
 
 const TEAM_TYPE = `
   type Team {
@@ -13,7 +13,7 @@ const resolvers = {
     team: async (root, args, context, info) => {
       try {
         const id = parseInt(args.id, 10);
-        const { teamLoader } = context;
+        const {teamLoader} = context;
         const team = await teamLoader.load(id);
         return team;
       } catch (error) {
@@ -26,12 +26,27 @@ const resolvers = {
       try {
         const teamId = parseInt(root.id, 10);
         const users = await User.findAll({
-          where: { teamId },
+          where: {teamId},
           attributes: ['id', 'email', 'username', 'teamId']
         });
         return users;
       } catch (error) {
         console.error('Unable to complete request to find users on teams');
+      }
+    }
+  },
+  Mutation: {
+    createTeam: async (root, args, context, info) => {
+      try {
+        const { name, userId } = args;
+        const [ team, user ] = await Promise.all([
+          Team.create({name}),
+          User.findOne({where: {id: userId}})
+        ]);
+        team.addUser(user);
+        return team;
+      } catch (error) {
+        console.error('Unable to complete request to create team');
       }
     }
   }
@@ -40,4 +55,4 @@ const resolvers = {
 module.exports = {
   typeDef: TEAM_TYPE,
   resolvers
-}
+};
