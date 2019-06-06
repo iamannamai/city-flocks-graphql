@@ -7,7 +7,7 @@ const loaders = require('./dataLoaders');
 
 const Query = `
   type Query {
-    users: [User]!
+    availableUsers: [User]!
     user(id: ID!): User
     events: [Event]!
     event(id: ID): Event

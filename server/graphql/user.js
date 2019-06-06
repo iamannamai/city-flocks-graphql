@@ -11,10 +11,13 @@ const USER_TYPE = `
 
 const resolvers = {
   Query: {
-    users: async (root, args, context, info) => {
+    availableUsers: async (root, args, context, info) => {
       try {
         const users = await User.findAll({
-          attributes: ['id', 'email', 'username', 'teamId']
+          attributes: ['id', 'email', 'username'],
+          where: {
+            teamId: null
+          }
         });
         return users;
       } catch (error) {
