@@ -44,7 +44,6 @@ const resolvers = {
           User.findOne({where: {id: userId}})
         ]);
         team.addUser(user);
-        console.log(team);
         return team;
       } catch (error) {
         console.error('Unable to complete request to create team');

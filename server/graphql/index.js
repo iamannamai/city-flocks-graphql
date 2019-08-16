@@ -1,5 +1,5 @@
-const { ApolloServer } = require('apollo-server-express');
-const { merge } = require('lodash');
+const {ApolloServer} = require('apollo-server-express');
+const {merge} = require('lodash');
 const {typeDef: User, resolvers: userResolvers} = require('./user');
 const {typeDef: Team, resolvers: teamResolvers} = require('./team');
 const {typeDef: Event, resolvers: eventResolvers} = require('./event');
@@ -29,7 +29,10 @@ const typeDefs = [Query, Mutation, User, Team, Event];
 const schema = new ApolloServer({
   typeDefs,
   resolvers,
-  context: () => loaders(),
+  context: ({req}) => ({
+    ...loaders(),
+    req
+  }),
   playground: {
     endpoint: '/graphql',
     settings: {

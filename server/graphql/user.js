@@ -1,4 +1,5 @@
 const {User, Team} = require('../db/models');
+const axios = require('axios');
 
 const USER_TYPE = `
   type User {
