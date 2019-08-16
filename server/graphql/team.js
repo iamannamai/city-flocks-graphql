@@ -38,12 +38,13 @@ const resolvers = {
   Mutation: {
     createTeam: async (root, args, context, info) => {
       try {
-        const { name, userId } = args;
-        const [ team, user ] = await Promise.all([
+        const {name, userId} = args;
+        const [team, user] = await Promise.all([
           Team.create({name}),
           User.findOne({where: {id: userId}})
         ]);
         team.addUser(user);
+        console.log(team);
         return team;
       } catch (error) {
         console.error('Unable to complete request to create team');
