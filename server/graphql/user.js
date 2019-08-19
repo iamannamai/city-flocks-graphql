@@ -1,4 +1,5 @@
-const { User, Team } = require('../db/models');
+const {User, Team} = require('../db/models');
+const axios = require('axios');
 
 const USER_TYPE = `
   type User {
@@ -42,7 +43,7 @@ const resolvers = {
         if (!root.teamId) return null;
 
         const id = parseInt(root.teamId, 10);
-        const { teamLoader } = context;
+        const {teamLoader} = context;
         const team = await teamLoader.load(id);
         return team;
       } catch (error) {
@@ -53,8 +54,8 @@ const resolvers = {
   Mutation: {
     addUserToTeam: async (root, args, context, info) => {
       try {
-        const { teamId, userId } = args;
-        const [ team, user ] = await Promise.all([
+        const {teamId, userId} = args;
+        const [team, user] = await Promise.all([
           Team.findByPk(teamId),
           User.findByPk(userId)
         ]);
@@ -65,9 +66,9 @@ const resolvers = {
       }
     }
   }
-}
+};
 
 module.exports = {
   typeDef: USER_TYPE,
   resolvers
-}
+};
